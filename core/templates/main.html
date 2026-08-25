@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+    <head>
+        <meta UTF-8>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <link rel="shortcut icon" href="{% static 'img/icon.ico' %}">
+
+        <title>Achei o Bug</title>
+
+        <!-- Bootstrap  4.1.0 CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+        <!-- STYLE ROOT -->
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+        <link rel="stylesheet" href="{% static 'css/extra-large-screen.css' %}">
+        <link rel="stylesheet" href="{% static 'css/large-screen.css' %}" media="screen and (max-width: 992px)">
+        <link rel="stylesheet" href="{% static 'css/medium-screen.css' %}" media="screen and (max-width: 768px)">
+        <link rel="stylesheet" href="{% static 'css/small-screen.css' %}" media="screen and (max-width: 576px)">
+
+    <head>
+    <body>
+        
+            {% include 'partials/_headerprefeitura.html' %}
+        
+            {% block content %} {% endblock %}
+        
+            {% include 'partials/_footer.html' %}
+
+        <script src="{% static '/js/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static '/js/jquery.maskedinput.js' %}"></script>
+        <script src="{% static '/js/mascaras.js' %}"></script>
+        
+        <!-- JS Bootstrap -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
+        
+    </body>
+</html>

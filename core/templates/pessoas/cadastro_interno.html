@@ -1,0 +1,59 @@
+
+<!-- saved from url=(0076)file:///P:/GEDIS/Treinamentos/Django/Aula%204/arquivos/cadastro_interno.html -->
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>{% extends 'main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<div class="container">
+    
+    <div class="row">
+        <div class="col-12">
+            <a href="{% url 'pessoas:index' %}" class="btn btn-outline-secondary mt-3" role="button">Voltar</a>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12 text-center mt-4">
+            <h1>Cadastro Usuário Interno</h1>
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 2% ">
+        <div class="col-12 mb-2">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% crispy form %}
+    
+            </form>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:xd_Signature msdt:dt="string"></mso:xd_Signature>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor msdt:dt="string">Queila Cristiane Abreu Queiroz</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor>
+<mso:Order msdt:dt="string">17800.0000000000</mso:Order>
+<mso:xd_ProgID msdt:dt="string"></mso:xd_ProgID>
+<mso:_ExtendedDescription msdt:dt="string"></mso:_ExtendedDescription>
+<mso:SharedWithUsers msdt:dt="string"></mso:SharedWithUsers>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author msdt:dt="string">Queila Cristiane Abreu Queiroz</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author>
+<mso:ComplianceAssetId msdt:dt="string"></mso:ComplianceAssetId>
+<mso:TemplateUrl msdt:dt="string"></mso:TemplateUrl>
+<mso:TriggerFlowInfo msdt:dt="string"></mso:TriggerFlowInfo>
+<mso:ContentTypeId msdt:dt="string">0x010100845BD54CC2A4C040808A91DEDF613390</mso:ContentTypeId>
+<mso:_SourceUrl msdt:dt="string"></mso:_SourceUrl>
+<mso:_SharedFileIndex msdt:dt="string"></mso:_SharedFileIndex>
+<mso:MediaLengthInSeconds msdt:dt="string"></mso:MediaLengthInSeconds>
+<mso:MediaServiceImageTags msdt:dt="string"></mso:MediaServiceImageTags>
+<mso:lcf76f155ced4ddcb4097134ff3c332f msdt:dt="string"></mso:lcf76f155ced4ddcb4097134ff3c332f>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></body></html>

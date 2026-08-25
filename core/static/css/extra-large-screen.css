@@ -1,0 +1,149 @@
+body{
+    margin:0;
+}
+
+/* FONTS UTILIZADAS */
+@font-face {
+    font-family: NewJuneExtraBold;
+    src: url('../font/NewJuneExtrabold.ttf');
+}
+@font-face {
+    font-family: NewJuneBold;
+    src: url('../font/NewJuneBold.ttf');
+}
+@font-face {
+    font-family: NewJuneHeavy;
+    src: url('../font/NewJuneHeavy.ttf');
+}
+@font-face {
+    font-family: NewJuneSemibold;
+    src: url('../font/NewJuneSemibold.ttf');
+}
+/* FIM FONTS UTILIZADAS */
+
+/* HEADER PREFEITURA */
+.bg-head-prefeitura{
+    background-color: #006CB5!important;
+    padding: 2px 0;
+    position: relative; 
+    z-index: 1;
+}
+/* FIM HEADER PREFEITURA */
+
+/* PÁGINA PRINCIPAL */
+/* #principal{
+    background-image: url('../img/background/tela_principal.png');
+    background-size: cover;
+    height: 91.4vh;
+} */
+
+.linha-principal{
+    transform: rotate(180deg); 
+    width: 60px;
+    border-top: 4px solid #161B5B;
+}
+
+#principal h2{ 
+    font-family: 'NewJuneBold', sans-serif;
+    color: #161B5B; 
+}
+
+#principal img{
+    height: 137px;
+}
+
+#principal #cadeado{
+    height: 100%;
+}
+
+#principal label{
+    color: #161B5B;
+    font-weight: 500;
+}
+
+#principal input{
+    padding: 0.5em;
+    order: 2;
+    width: 100%;
+    background-color: transparent;
+    border-radius: 30px;
+    border-color: black;
+    text-align: center;
+    border: 2.5px solid black;
+}
+
+#principal .form-control:focus{
+    box-shadow: 0 0 0 0.2rem #161B5B;
+}
+
+#principal button{
+    background-color: #161B5B ;
+    color: #FFF;
+    border: 1.5px solid #161B5B;
+    border-radius: 30px;
+    font-family: 'NewJuneBold', sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.3s;
+    padding: 7px 0;
+  }
+  
+#principal button:hover{
+    color: #161B5B;
+    background-color: #FFF;
+}
+
+#principal p{
+    color:#161B5B;
+}
+
+/* FIM PÁGINA PRINCIPAL */
+
+/* FOOTER */
+
+#footer-semit{
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(14,19,78,0.9752275910364145) 46%, rgba(0,212,255,1) 100%);
+    position: fixed;
+    bottom: 0; 
+    width: 100%; 
+    color:white;
+    font-weight: bolder;
+  }
+  
+#footer-semit a{
+    color:white;
+    font-weight: bolder;
+}
+  
+/* FIM FOOTER */
+
+@media only screen and (max-width: 1750px) {
+
+}
+@media only screen and (max-width: 1680px) {
+
+}
+@media only screen and (max-width: 1650px) {
+   
+}
+@media only screen and (max-width: 1575px) {
+
+}     
+
+@media only screen and (max-width: 1360px) {
+    
+}
+
+@media only screen and (max-width: 1280px) {
+
+}
+
+@media only screen and (max-width: 1168px) {
+   
+}
+
+@media only screen and (max-width: 1024px) {
+   
+}
