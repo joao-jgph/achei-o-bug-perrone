@@ -25,7 +25,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-sm-12 d-flex flex-row">               
-                    <img class="img-fluid" src="file:///P:/GEDIS/Treinamentos/Django/Aula%204/arquivos/%7B%%20static%20&#39;img/logos/logo.png&#39;%20%%7D" alt="Logo Eventos Salvador">
+                    <img class="img-fluid" src="{% static 'img/icon.ico' %}" alt="Logo Eventos Salvador">
                                     
                     <form action="file:///P:/GEDIS/Treinamentos/Django/Aula%204/arquivos/index.html#" method="POST" class="ml-3">
                         {% csrf_token %}
@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        {% comment %} <div class="container">
+    <div class="container">
             <div class="row">
                 <div class="col-6">
                     <div class="row justify-content-center">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-        </div> {% endcomment %}
+        </div>
     </div>
 
 </div>
