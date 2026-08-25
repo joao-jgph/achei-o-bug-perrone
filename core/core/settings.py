@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
 
     'pessoas',
+    'CustomDBLogger',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
