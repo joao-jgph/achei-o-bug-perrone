@@ -141,12 +141,43 @@ MESSAGE_TAGS = {
 
 # Configurações SMTP
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
+EMAIL_HOST_USER = 'joao.hohlenwerger@salvador.ba.gov.br'
+EMAIL_HOST_PASSWORD = 'iszmkeptfjrbwzoq'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
+
+#configurando logging utilizando o app CustomDBLogger
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+                'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(asctime)s %(message)s'
+        },
+        },
+        'handlers': {
+            'db_log': {
+                'level': 'INFO',
+                'class': 'CustomDBLogger.db_log_handler.DatabaseLogHandler'
+            },
+        },
+        'loggers': {
+            'db': {
+                'handlers': ['db_log'],
+                'level': 'INFO'
+            },
+            'django.request': { # logging 500 errors to database
+            'handlers': ['db_log'],
+            'level': 'ERROR',
+            'propagate': False,
+            }
+            }
+        }

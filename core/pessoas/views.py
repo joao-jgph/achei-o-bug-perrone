@@ -9,7 +9,7 @@ from django.conf import settings
 import logging
 import smtplib
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('db')
 
 def index(request):
     return render(request, 'pessoas/index.html')
@@ -44,6 +44,8 @@ def cadastro_interno(request):
             cadastrar_usuario_interno.fk_nivel = nivel
 
             cadastrar_usuario_interno.save()
+
+            logger.info(f'Novo login: "{user.username}" criado. ')
 
             try:
                 email_body = f"""
