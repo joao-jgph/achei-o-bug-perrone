@@ -1,0 +1,50 @@
+from django.db import models
+
+class Marca(models.Model):
+    pk_id = models.AutoField(primary_key=True)
+    st_nome = models.CharField(max_length=100, unique=True, verbose_name='Marca')
+
+    def __str__(self):
+        return self.st_nome
+
+    class Meta:
+        db_table = 'tb_acheiobug_marca'
+class Categoria(models.Model):
+    pk_id = models.AutoField(primary_key=True)
+    st_nome = models.CharField(max_length=100, unique=True, verbose_name='Categoria')
+
+    def __str__(self):
+        return self.st_nome
+
+    class Meta:
+        db_table = 'tb_acheiobug_categoria'
+
+class Modelo(models.Model):
+    pk_id = models.AutoField(primary_key=True)
+    st_nome = models.CharField(max_length=100, verbose_name='Modelo')
+    fk_marca = models.ForeignKey('Marca', on_delete=models.PROTECT, verbose_name='Marca')
+
+    def __str__(self):
+        return self.st_nome
+
+    class Meta:
+        db_table = 'tb_acheiobug_modelo'
+        constraints = [models.UniqueConstraint(fields=['st_nome', 'fk_marca'],name='unique_modelo_marca')]
+
+class Veiculo(models.Model):
+    pk_id = models.AutoField(primary_key=True)
+    st_placa = models.CharField(max_length=7, unique=True, verbose_name='Placa')
+    fk_marca = models.ForeignKey('Marca', on_delete=models.PROTECT, verbose_name='Marca')
+    fk_modelo = models.ForeignKey('Modelo', on_delete=models.PROTECT, verbose_name='Modelo')
+    st_cor = models.CharField(max_length=20, verbose_name='Cor')
+    dt_ano_fabricacao = models.DateField(verbose_name='Ano de Fabricação')
+    dt_ano_modelo = models.DateField(verbose_name='Ano do Modelo')
+
+    def __str__(self):
+        return self.st_placa
+
+    class Meta:
+        db_table = 'tb_acheiobug_veiculo'
+
+
+
