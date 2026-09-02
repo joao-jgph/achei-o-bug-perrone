@@ -40,3 +40,12 @@ def frota(request):
         'categorias': Categoria.objects.order_by('st_nome').values_list('st_nome', flat=True),
     }
     return render(request, 'veiculos/frota.html', context)
+
+def cadastro_veiculos(request):
+    categorias = Categoria.objects.all()
+    marcas = Marca.objects.all()
+    context = {
+        'categorias': categorias,
+        'marcas': marcas,
+    }
+    return render(request, 'veiculos/cadastro_veiculos.html', context)

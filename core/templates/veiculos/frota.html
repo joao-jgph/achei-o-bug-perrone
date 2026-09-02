@@ -402,10 +402,9 @@
                 if
                 request.GET.direcao=""
                 ="desc"
-                %}selected{%
-                endif
-                %}
-              >
+                %}selected
+                
+                {%endif%}>
                 Decrescente
               </option>
             </select>
@@ -445,13 +444,13 @@
             <ul class="details">
               <li><span>Placa</span><strong>{{ veiculo.st_placa }}</strong></li>
               <li>
-                <span>Ano</span
-                ><strong>{{ veiculo.dt_ano_fabricacao|date:'Y' }}</strong>
+                <span>Ano</span>
+                <strong>{{ veiculo.dt_ano_fabricacao|date:'Y' }}</strong>
               </li>
               <li><span>Categoria</span><strong>Não informado</strong></li>
               <li>
-                <span>Cor</span
-                ><strong>{{ veiculo.st_cor|default:'Não informado' }}</strong>
+                <span>Cor</span>
+                <strong>{{ veiculo.st_cor|default:'Não informado' }}</strong>
               </li>
             </ul>
           </div>
