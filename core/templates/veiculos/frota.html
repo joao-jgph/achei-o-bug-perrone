@@ -1,0 +1,245 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frota de Veículos</title>
+    <link rel="stylesheet" href="{% static 'css/frota.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Frota de Veículos</h1>
+        <div class="badge">{{ veiculos|length }} registro(s)</div>
+      </div>
+
+      <section class="filters">
+        <form class="filters-form" method="get">
+          <div class="field">
+            <label for="marca">Marca</label>
+            <select id="marca" name="marca">
+              <option value="">Todas</option>
+              {% for marca in marcas %}
+              <option
+                value="{{ marca }}"
+                {%
+                if
+                request.GET.marca=""
+                ="marca"
+                %}selected{%
+                endif
+                %}
+              >
+                {{ marca }}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+              <option value="">Todos</option>
+              <option
+                value="disponivel"
+                {%
+                if
+                request.GET.status=""
+                ="disponivel"
+                %}selected{%
+                endif
+                %}
+              >
+                Disponível
+              </option>
+              <option
+                value="manutencao"
+                {%
+                if
+                request.GET.status=""
+                ="manutencao"
+                %}selected{%
+                endif
+                %}
+              >
+                Manutenção
+              </option>
+              <option
+                value="indisponivel"
+                {%
+                if
+                request.GET.status=""
+                ="indisponivel"
+                %}selected{%
+                endif
+                %}
+              >
+                Indisponível
+              </option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="categoria">Categoria</label>
+            <select id="categoria" name="categoria">
+              <option value="">Todas</option>
+              {% for categoria in categorias %}
+              <option
+                value="{{ categoria }}"
+                {%
+                if
+                request.GET.categoria=""
+                ="categoria"
+                %}selected{%
+                endif
+                %}
+              >
+                {{ categoria }}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="ordem">Ordenar por</label>
+            <select id="ordem" name="ordem">
+              <option
+                value="marca"
+                {%
+                if
+                request.GET.ordem=""
+                ="marca"
+                %}selected{%
+                endif
+                %}
+              >
+                Marca
+              </option>
+              <option
+                value="modelo"
+                {%
+                if
+                request.GET.ordem=""
+                ="modelo"
+                %}selected{%
+                endif
+                %}
+              >
+                Modelo
+              </option>
+              <option
+                value="ano"
+                {%
+                if
+                request.GET.ordem=""
+                ="ano"
+                %}selected{%
+                endif
+                %}
+              >
+                Ano
+              </option>
+              <option
+                value="placa"
+                {%
+                if
+                request.GET.ordem=""
+                ="placa"
+                %}selected{%
+                endif
+                %}
+              >
+                Placa
+              </option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="direcao">Direção</label>
+            <select id="direcao" name="direcao">
+              <option
+                value="asc"
+                {%
+                if
+                request.GET.direcao=""
+                ="asc"
+                or
+                not
+                request.GET.direcao
+                %}selected{%
+                endif
+                %}
+              >
+                Crescente
+              </option>
+              <option
+                value="desc"
+                {%
+                if
+                request.GET.direcao=""
+                ="desc"
+                %}selected{%
+                endif
+                %}
+              >
+                Decrescente
+              </option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="busca">Busca</label>
+            <input
+              type="text"
+              id="busca"
+              name="q"
+              value="{{ request.GET.q|default:'' }}"
+              placeholder="Marca, modelo ou placa"
+            />
+          </div>
+
+          <div class="field">
+            <button type="submit">Aplicar filtros</button>
+          </div>
+        </form>
+      </section>
+
+      {% if veiculos %}
+      <section class="results">
+        {% for veiculo in veiculos %}
+        <article class="vehicle-card">
+          <div class="vehicle-image">🚗</div>
+          <div class="vehicle-body">
+            <div class="title-row">
+              <div>
+                <p class="vehicle-brand">{{ veiculo.fk_marca.st_nome }}</p>
+                <h2 class="vehicle-model">{{ veiculo.fk_modelo.st_nome }}</h2>
+              </div>
+              <span class="status disponivel">Disponível</span>
+            </div>
+
+            <ul class="details">
+              <li><span>Placa</span><strong>{{ veiculo.st_placa }}</strong></li>
+              <li>
+                <span>Ano</span
+                ><strong>{{ veiculo.dt_ano_fabricacao|date:'Y' }}</strong>
+              </li>
+              <li><span>Categoria</span><strong>Não informado</strong></li>
+              <li>
+                <span>Cor</span
+                ><strong>{{ veiculo.st_cor|default:'Não informado' }}</strong>
+              </li>
+            </ul>
+          </div>
+        </article>
+        {% endfor %}
+      </section>
+      {% else %}
+      <div class="empty">
+        Nenhum veículo encontrado com os filtros selecionados.
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
