@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 class Marca(models.Model):
     pk_id = models.AutoField(primary_key=True)
@@ -45,6 +46,17 @@ class Veiculo(models.Model):
 
     class Meta:
         db_table = 'tb_acheiobug_veiculo'
+
+    def clean(self):
+        # garante que o modelo pertence à marca selecionada
+        if self.fk_modelo and self.fk_marca:
+            if getattr(self.fk_modelo, 'fk_marca_id', None) != getattr(self.fk_marca, 'pk_id', None):
+                raise ValidationError({'fk_modelo': 'O modelo selecionado não pertence à marca informada.'})
+
+    def save(self, *args, **kwargs):
+        # chama validação antes de salvar para evitar inconsistências
+        self.full_clean()
+        super().save(*args, **kwargs)
 
 
 

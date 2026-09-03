@@ -1,0 +1,118 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container" style="max-width:800px;margin:32px auto;">
+	<h1>Cadastro de Veículo</h1>
+
+	{% if messages %}
+	<ul class="messages">
+		{% for message in messages %}
+		<li class="alert alert-{{ message.tags }}">{{ message }}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+
+	<div class="card" style="padding:20px;">
+		<form method="post">
+			{% csrf_token %}
+
+			<div class="mb-3">
+				{{ form.st_placa.label_tag }}
+				{{ form.st_placa }}
+				{{ form.st_placa.errors }}
+			</div>
+
+			<div class="mb-3">
+				{{ form.fk_marca.label_tag }}
+				<select id="id_fk_marca_select" name="fk_marca" class="form-select">
+					<option value="">---------</option>
+					{% for marca in marcas %}
+					<option value="{{ marca.pk_id }}" {% if form.fk_marca.value|stringformat:"s" == marca.pk_id|stringformat:"s" %}selected{% endif %}>{{ marca.st_nome }}</option>
+					{% endfor %}
+				</select>
+				{{ form.fk_marca.errors }}
+			</div>
+
+			<div class="mb-3">
+				<label for="id_fk_modelo">Modelo</label>
+				<select id="id_fk_modelo_select" name="fk_modelo" class="form-select">
+					<option value="">---------</option>
+					{% for modelo in modelos %}
+					<option value="{{ modelo.pk_id }}" data-marca="{{ modelo.fk_marca.pk_id }}" {% if form.fk_modelo.value|stringformat:"s" == modelo.pk_id|stringformat:"s" %}selected{% endif %}>{{ modelo.fk_marca.st_nome }} — {{ modelo.st_nome }}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="mb-3">
+				{{ form.st_cor.label_tag }}
+				{{ form.st_cor }}
+				{{ form.st_cor.errors }}
+			</div>
+
+			<div class="mb-3">
+				{{ form.dt_ano_fabricacao.label_tag }}
+				{{ form.dt_ano_fabricacao }}
+				{{ form.dt_ano_fabricacao.errors }}
+			</div>
+
+			<div class="mb-3">
+				{{ form.dt_ano_modelo.label_tag }}
+				{{ form.dt_ano_modelo }}
+				{{ form.dt_ano_modelo.errors }}
+			</div>
+
+			<div style="margin-top:12px;">
+				<button class="btn btn-primary" type="submit">Salvar veículo</button>
+			</div>
+		</form>
+	</div>
+
+		<!-- Select2 CSS/JS (CDN) -->
+		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+		<link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+		<script>
+			$(document).ready(function () {
+				const $marca = $('#id_fk_marca_select').select2({
+					theme: 'bootstrap-5',
+					placeholder: 'Selecione ou digite a marca',
+					allowClear: true,
+					width: '100%'
+				});
+
+				const $modelo = $('#id_fk_modelo_select').select2({
+					theme: 'bootstrap-5',
+					placeholder: 'Selecione ou digite o modelo',
+					allowClear: true,
+					width: '100%'
+				});
+
+				function filterModelos() {
+					const marcaId = $marca.val();
+					$('#id_fk_modelo_select option').each(function () {
+						const $opt = $(this);
+						const optMarca = $opt.data('marca') + '';
+						if (!marcaId || optMarca === '' || optMarca === String(marcaId)) {
+							$opt.prop('disabled', false);
+						} else {
+							$opt.prop('disabled', true);
+						}
+					});
+					$modelo.trigger('change.select2');
+				}
+
+				$marca.on('change', function () {
+					filterModelos();
+					$modelo.val(null).trigger('change');
+				});
+
+				// initialize filtering on load
+				filterModelos();
+			});
+		</script>
+
+</div>
+{% endblock %}
