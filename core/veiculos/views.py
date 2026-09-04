@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 import requests
 
 from .models import Categoria, Marca, Veiculo, Modelo
@@ -44,6 +45,7 @@ def frota(request):
     }
     return render(request, 'veiculos/frota.html', context)
 
+@login_required(login_url='/login/')
 def cadastro_veiculos(request):
     categorias = Categoria.objects.all()
     marcas = Marca.objects.all()

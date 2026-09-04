@@ -1,468 +1,326 @@
-<html
-  xmlns:mso="urn:schemas-microsoft-com:office:office"
-  xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
->
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  </head>
-  <body>
-    {% extends 'main.html' %} {%block content%}
-    <style>
-            :root {
-        --bg: #f4f7fb;
-        --panel: #ffffff;
-        --primary: #1f6feb;
-        --primary-dark: #174ea6;
-        --text: #1f2937;
-        --muted: #6b7280;
-        --border: #dfe7f5;
-        --success: #12805c;
-        --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
-      }
+{% extends 'main.html' %}
+{% block content %}
 
-      * {
-        box-sizing: border-box;
-      }
+<style>
+  :root {
+    --bg: #f4f7fb;
+    --panel: #ffffff;
+    --primary: #1f6feb;
+    --primary-dark: #174ea6;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --warning: #b45309;
+    --border: #dfe7f5;
+    --success: #12805c;
+    --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  }
 
-      body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        background: var(--bg);
-        color: var(--text);
-      }
+  * { box-sizing: border-box; }
 
-      .container {
-        max-width: 1200px;
-        margin: 32px auto;
-        padding: 0 20px;
-      }
+  body { 
+    margin: 0; 
+    font-family: Arial, Helvetica, sans-serif; 
+    background: var(--bg); color: var(--text); 
+  }
 
-      .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 24px;
-        flex-wrap: wrap;
-      }
+  .container { 
+    max-width: 1100px; 
+    margin: 28px auto; 
+    padding: 0 18px; 
+  }
 
-      .header h1 {
-        margin: 0;
-        font-size: 2rem;
-      }
+  .header { display:flex; 
+    justify-content:space-between; 
+    align-items:center; 
+    gap:16px; 
+    margin-bottom:18px; 
+    flex-wrap:wrap 
+  }
 
-      .badge {
-        background: #eaf2ff;
-        color: var(--primary-dark);
-        padding: 8px 12px;
-        border-radius: 999px;
-        font-weight: 700;
-        font-size: 0.9rem;
-      }
+  .header h1 { 
+    margin:0; 
+    font-size:1.6rem 
+  }
 
-      .filters {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        box-shadow: var(--shadow);
-        padding: 20px;
-        margin-bottom: 24px;
-      }
+  .badge { 
+    background:#eaf2ff; 
+    color:var(--primary-dark); 
+    padding:6px 10px; 
+    border-radius:999px; 
+    font-weight:700; 
+    font-size:0.85rem; 
+    min-width:48px; 
+    text-align:center 
+  }
 
-      .filters-form {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 16px;
-        align-items: end;
-      }
+  .filters { 
+    background:var(--panel); 
+    border:1px solid var(--border); 
+    border-radius:12px; 
+    box-shadow:0 6px 18px rgba(15,23,42,0.04); 
+    padding:16px; 
+    margin-bottom:20px 
+  }
 
-      .field {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
+  .filters-form { 
+    display:grid; 
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); 
+    gap:14px; align-items:end 
+  }
 
-      .field label {
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: var(--muted);
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-      }
+  .field { 
+    display:flex; 
+    flex-direction:column; 
+    gap:6px 
+  }
 
-      .field input,
-      .field select,
-      .field button {
-        height: 44px;
-        border-radius: 10px;
-        border: 1px solid var(--border);
-        font-size: 0.96rem;
-        padding: 0 12px;
-        background: #fff;
-        color: var(--text);
-      }
+  .field label { 
+    font-size:0.75rem; 
+    font-weight:700; 
+    color:var(--muted); 
+    text-transform:uppercase; 
+    letter-spacing:0.04em; 
+    margin-bottom:6px 
+  }
 
-      .field button {
-        background: var(--primary);
-        border-color: var(--primary);
-        color: #fff;
-        font-weight: 700;
-        cursor: pointer;
-        transition: background 0.2s ease;
-      }
+  .field input, .field select, .field button { height:44px; 
+    border-radius:8px; 
+    border:1px solid var(--border); 
+    font-size:0.95rem; 
+    padding:0 12px; 
+    background:#fff; color:var(--text); 
+    transition:border-color .12s ease, box-shadow .12s ease, transform .08s ease; 
+    width:100%; 
+    box-sizing:border-box 
+  }
+  .field select { 
+    -webkit-appearance:none; 
+    -moz-appearance:none; 
+    appearance:none; 
+    padding-right:40px; 
+    background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%), linear-gradient(135deg,var(--muted) 50%,transparent 50%); 
+    background-position:calc(100% - 18px) calc(50% - 6px), calc(100% - 12px) calc(50% - 6px); 
+    background-size:6px 6px,6px 6px; 
+    background-repeat:no-repeat 
+  }
 
-      .field button:hover {
-        background: var(--primary-dark);
-      }
+  .field select::-ms-expand { 
+    display:none 
+  }
 
-      .results {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-      }
+  .field input:focus, .field select:focus, .field button:focus { 
+    outline:none; 
+    border-color:var(--primary); 
+    box-shadow:0 6px 18px rgba(31,111,235,0.08); 
+    transform:translateY(-1px) 
+  }
 
-      .vehicle-card {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        box-shadow: var(--shadow);
-        overflow: hidden;
-      }
+  .field button { 
+    background:var(--primary); 
+    border-color:var(--primary); 
+    color:#fff; 
+    font-weight:700; 
+    cursor:pointer 
+  }
 
-      .vehicle-image {
-        background: linear-gradient(135deg, #dfeaff, #f4f8ff);
-        height: 160px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 3rem;
-      }
+/*   .actions { 
+    margin-bottom: 20px;
+  } */
 
-      .vehicle-body {
-        padding: 18px;
-      }
+  .field button:hover { background:var(--primary-dark) }
 
-      .title-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: start;
-        gap: 12px;
-        margin-bottom: 10px;
-      }
+  .results { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px }
+  .vehicle-card { background:var(--panel); 
+    border:1px solid rgba(31,111,235,0.04); 
+    border-radius:12px; 
+    box-shadow:0 6px 18px rgba(15,23,42,0.04); 
+    overflow:hidden; transition:transform .12s ease, 
+    box-shadow .12s ease 
+  }
 
-      .vehicle-model {
-        margin: 0;
-        font-size: 1.25rem;
-      }
+  .vehicle-card:hover { 
+    transform:translateY(-6px); 
+    box-shadow:0 18px 36px rgba(15,23,42,0.08) 
+  }
 
-      .vehicle-brand {
-        margin: 0;
-        color: var(--muted);
-        font-size: 0.95rem;
-      }
+  .vehicle-image { background:linear-gradient(135deg,#dfeaff,#f4f8ff); 
+    height:140px; 
+    display:flex; 
+    align-items:center; 
+    justify-content:center; 
+    font-size:2.6rem 
+  }
 
-      .status {
-        border-radius: 999px;
-        padding: 6px 10px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        white-space: nowrap;
-      }
+  .vehicle-body { padding:18px 18px 22px }
 
-      .status.disponivel {
-        background: #eafff3;
-        color: var(--success);
-      }
+  .title-row { display:flex; 
+    justify-content:space-between; 
+    align-items:start; 
+    gap:12px; 
+    margin-bottom:8px 
+  }
+  
+  .vehicle-model { margin:0; 
+    font-size:1.05rem; 
+    word-break:break-word 
+  }
 
-      .status.manutencao {
-        background: #fff4e5;
-        color: var(--warning);
-      }
+  .vehicle-brand { 
+    margin:0; color:var(--muted); 
+    font-size:0.9rem 
+  }
 
-      .status.indisponivel {
-        background: #fde8e8;
-        color: #c53030;
-      }
+  .status { 
+    border-radius:999px; 
+    padding:6px 10px; 
+    font-size:0.75rem; 
+    font-weight:700; 
+    white-space:nowrap 
+  }
 
-      .details {
-        list-style: none;
-        padding: 0;
-        margin: 16px 0;
-        display: grid;
-        gap: 8px;
-      }
+  .status.disponivel { 
+    background:#eafff3; 
+    color:var(--success) 
+  }
 
-      .details li {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        border-bottom: 1px solid #edf2f7;
-        padding-bottom: 8px;
-        font-size: 0.92rem;
-      }
+  .status.manutencao { background:#fff4e5; 
+    color:var(--warning) 
+  }
 
-      .details li:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-      }
+  .status.indisponivel { 
+    background:#fde8e8; 
+    color:#c53030 
+  }
 
-      .details span:first-child {
-        color: var(--muted);
-      }
+  .details { 
+    list-style:none; 
+    padding:0; 
+    margin:16px 0; 
+    display:grid; 
+    gap:8px 
+  }
+  .details li { 
+    display:flex; 
+    justify-content:space-between; 
+    gap:12px; 
+    border-bottom:1px solid #f1f5f9; 
+    padding-bottom:8px; 
+    font-size:0.92rem 
+  }
+  .details li:last-child { 
+    border-bottom:none; 
+    padding-bottom:0 
+  }
+  .details span:first-child { 
+    color:var(--muted) 
+  }
 
-      .empty {
-        background: var(--panel);
-        border: 1px dashed var(--border);
-        border-radius: 16px;
-        padding: 32px 20px;
-        text-align: center;
-        color: var(--muted);
-        font-weight: 600;
-      }
+  .empty { background:var(--panel); border:1px dashed var(--border); border-radius:16px; padding:32px 20px; text-align:center; color:var(--muted); font-weight:600 }
 
-      @media (max-width: 640px) {
-        .header {
-          align-items: flex-start;
-        }
+  @media (max-width:900px) { .filters-form { grid-template-columns:repeat(auto-fit,minmax(160px,1fr)) } }
+  @media (max-width:640px) { .header { align-items:flex-start } .header h1 { font-size:1.4rem } .vehicle-image { height:120px } .results { grid-template-columns:1fr } .filters-form { grid-template-columns:1fr } }
+  
+</style>
 
-        .header h1 {
-          font-size: 1.6rem;
-        }
-      }
+<div class="container">
+  <div class="header">
+    <h1>Frota de Veículos</h1>
+    <div class="badge">{{ veiculos|length }} registro(s)</div>
+  </div>
+  <div class="mb-3 d-flex gap-2">
+    <a class="btn btn-sm btn-outline-secondary" href="{% url 'veiculos:cadastro_veiculos' %}">Cadastrar Veículo</a>
+    <a class="btn btn-sm btn-outline-secondary" href="{% url 'veiculos:importar_marca' %}">Cadastrar Marca</a>
+  </div>
 
-    </style>
-    <div class="container">
-      <div class="header">
-        <h1>Frota de Veículos</h1>
-        <div class="badge">{{ veiculos|length }} registro(s)</div>
+  <section class="filters">
+    <form class="filters-form" method="get">
+      <div class="field">
+        <label for="marca">Marca</label>
+        <select id="marca" name="marca">
+          <option value="">Todas</option>
+          {% for marca in marcas %}
+          <option value="{{ marca }}" {% if request.GET.marca == marca %}selected{% endif %}>{{ marca }}</option>
+          {% endfor %}
+        </select>
       </div>
 
-      <section class="filters">
-        <form class="filters-form" method="get">
-          <div class="field">
-            <label for="marca">Marca</label>
-            <select id="marca" name="marca">
-              <option value="">Todas</option>
-              {% for marca in marcas %}
-              <option
-                value="{{ marca }}"
-                {%
-                if
-                request.GET.marca=""
-                ="marca"
-                %}selected{%
-                endif
-                %}
-              >
-                {{ marca }}
-              </option>
-              {% endfor %}
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="status">Status</label>
-            <select id="status" name="status">
-              <option value="">Todos</option>
-              <option
-                value="disponivel"
-                {%
-                if
-                request.GET.status=""
-                ="disponivel"
-                %}selected{%
-                endif
-                %}
-              >
-                Disponível
-              </option>
-              <option
-                value="manutencao"
-                {%
-                if
-                request.GET.status=""
-                ="manutencao"
-                %}selected{%
-                endif
-                %}
-              >
-                Manutenção
-              </option>
-              <option
-                value="indisponivel"
-                {%
-                if
-                request.GET.status=""
-                ="indisponivel"
-                %}selected{%
-                endif
-                %}
-              >
-                Indisponível
-              </option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="categoria">Categoria</label>
-            <select id="categoria" name="categoria">
-              <option value="">Todas</option>
-              {% for categoria in categorias %}
-              <option
-                value="{{ categoria }}"
-                {%
-                if
-                request.GET.categoria=""
-                ="categoria"
-                %}selected{%
-                endif
-                %}
-              >
-                {{ categoria }}
-              </option>
-              {% endfor %}
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="ordem">Ordenar por</label>
-            <select id="ordem" name="ordem">
-              <option
-                value="marca"
-                {%
-                if
-                request.GET.ordem=""
-                ="marca"
-                %}selected{%
-                endif
-                %}
-              >
-                Marca
-              </option>
-              <option
-                value="modelo"
-                {%
-                if
-                request.GET.ordem=""
-                ="modelo"
-                %}selected{%
-                endif
-                %}
-              >
-                Modelo
-              </option>
-              <option
-                value="ano"
-                {%
-                if
-                request.GET.ordem=""
-                ="ano"
-                %}selected{%
-                endif
-                %}
-              >
-                Ano
-              </option>
-              <option
-                value="placa"
-                {%
-                if
-                request.GET.ordem=""
-                ="placa"
-                %}selected{%
-                endif
-                %}
-              >
-                Placa
-              </option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="direcao">Direção</label>
-            <select id="direcao" name="direcao">
-              <option
-                value="asc"
-                {%
-                if
-                request.GET.direcao=""
-                ="asc"
-                or
-                not
-                request.GET.direcao
-                %}selected{%
-                endif
-                %}
-              >
-                Crescente
-              </option>
-              <option
-                value="desc"
-                {%
-                if
-                request.GET.direcao=""
-                ="desc"
-                %}selected
-                
-                {%endif%}>
-                Decrescente
-              </option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="busca">Busca</label>
-            <input
-              type="text"
-              id="busca"
-              name="q"
-              value="{{ request.GET.q|default:'' }}"
-              placeholder="Marca, modelo ou placa"
-            />
-          </div>
-
-          <div class="field">
-            <button type="submit">Aplicar filtros</button>
-          </div>
-        </form>
-      </section>
-
-      {% if veiculos %}
-      <section class="results">
-        {% for veiculo in veiculos %}
-        <article class="vehicle-card">
-          <div class="vehicle-image">🚗</div>
-          <div class="vehicle-body">
-            <div class="title-row">
-              <div>
-                <p class="vehicle-brand">{{ veiculo.fk_marca.st_nome }}</p>
-                <h2 class="vehicle-model">{{ veiculo.fk_modelo.st_nome }}</h2>
-              </div>
-              <span class="status disponivel">Disponível</span>
-            </div>
-
-            <ul class="details">
-              <li><span>Placa</span><strong>{{ veiculo.st_placa }}</strong></li>
-              <li>
-                <span>Ano</span>
-                <strong>{{ veiculo.dt_ano_fabricacao|date:'Y' }}</strong>
-              </li>
-              <li><span>Categoria</span><strong>Não informado</strong></li>
-              <li>
-                <span>Cor</span>
-                <strong>{{ veiculo.st_cor|default:'Não informado' }}</strong>
-              </li>
-            </ul>
-          </div>
-        </article>
-        {% endfor %}
-      </section>
-      {% else %}
-      <div class="empty">
-        Nenhum veículo encontrado com os filtros selecionados.
+      <div class="field">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          <option value="">Todos</option>
+          <option value="disponivel" {% if request.GET.status == 'disponivel' %}selected{% endif %}>Disponível</option>
+          <option value="manutencao" {% if request.GET.status == 'manutencao' %}selected{% endif %}>Manutenção</option>
+          <option value="indisponivel" {% if request.GET.status == 'indisponivel' %}selected{% endif %}>Indisponível</option>
+        </select>
       </div>
-      {% endif %}
-    </div>
-    {% endblock%}
-  </body>
-</html>
+
+      <div class="field">
+        <label for="categoria">Categoria</label>
+        <select id="categoria" name="categoria">
+          <option value="">Todas</option>
+          {% for categoria in categorias %}
+          <option value="{{ categoria }}" {% if request.GET.categoria == categoria %}selected{% endif %}>{{ categoria }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="ordem">Ordenar por</label>
+        <select id="ordem" name="ordem">
+          <option value="marca" {% if request.GET.ordem == 'marca' %}selected{% endif %}>Marca</option>
+          <option value="modelo" {% if request.GET.ordem == 'modelo' %}selected{% endif %}>Modelo</option>
+          <option value="ano" {% if request.GET.ordem == 'ano' %}selected{% endif %}>Ano</option>
+          <option value="placa" {% if request.GET.ordem == 'placa' %}selected{% endif %}>Placa</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="direcao">Direção</label>
+        <select id="direcao" name="direcao">
+          <option value="asc" {% if request.GET.direcao == 'asc' or not request.GET.direcao %}selected{% endif %}>Crescente</option>
+          <option value="desc" {% if request.GET.direcao == 'desc' %}selected{% endif %}>Decrescente</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="busca">Busca</label>
+        <input type="text" id="busca" name="q" value="{{ request.GET.q|default:'' }}" placeholder="Marca, modelo ou placa" />
+      </div>
+
+      <div class="field">
+        <button type="submit">Aplicar filtros</button>
+      </div>
+    </form>
+  </section>
+
+  {% if veiculos %}
+  <section class="results">
+    {% for veiculo in veiculos %}
+    <article class="vehicle-card">
+      <div class="vehicle-image">🚗</div>
+      <div class="vehicle-body">
+        <div class="title-row">
+          <div>
+            <p class="vehicle-brand">{{ veiculo.fk_marca.st_nome }}</p>
+            <h2 class="vehicle-model">{{ veiculo.fk_modelo.st_nome }}</h2>
+          </div>
+          <span class="status disponivel">Disponível</span>
+        </div>
+
+        <ul class="details">
+          <li><span>Placa</span><strong>{{ veiculo.st_placa }}</strong></li>
+          <li><span>Ano</span><strong>{{ veiculo.dt_ano_fabricacao }}</strong></li>
+          <li><span>Categoria</span><strong>Não informado</strong></li>
+          <li><span>Cor</span><strong>{{ veiculo.st_cor|default:'Não informado' }}</strong></li>
+        </ul>
+      </div>
+    </article>
+    {% endfor %}
+  </section>
+  {% else %}
+  <div class="empty">Nenhum veículo encontrado com os filtros selecionados.</div>
+  {% endif %}
+
+</div>
+
+{% endblock %}

@@ -5,6 +5,6 @@ from veiculos import views as veiculos_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('pessoas.urls')),
-    path('', include('veiculos.urls')),
+    path('', include('pessoas.urls')),
+    path('veiculos/', include('veiculos.urls')),
 ]

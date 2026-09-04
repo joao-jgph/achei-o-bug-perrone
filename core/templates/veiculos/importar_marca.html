@@ -4,6 +4,11 @@
 {% block content %}
 <div class="container" style="max-width:800px;margin:32px auto;">
   <h1>Importar Marca e Modelos</h1>
+  
+  <div class="mb-3 d-flex gap-2">
+    <a class="btn btn-sm btn-outline-secondary" href="{% url 'veiculos:frota' %}">Voltar para Frota</a>
+    <a class="btn btn-sm btn-outline-secondary" href="{% url 'veiculos:cadastro_veiculos' %}">Cadastrar Veículo</a>
+  </div>
 
   {% if messages %}
   <ul class="messages">

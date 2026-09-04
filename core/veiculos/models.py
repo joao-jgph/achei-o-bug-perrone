@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
+import datetime
 
 class Marca(models.Model):
     pk_id = models.AutoField(primary_key=True)
@@ -38,8 +40,16 @@ class Veiculo(models.Model):
     fk_marca = models.ForeignKey('Marca', on_delete=models.PROTECT, verbose_name='Marca')
     fk_modelo = models.ForeignKey('Modelo', on_delete=models.PROTECT, verbose_name='Modelo')
     st_cor = models.CharField(max_length=20, verbose_name='Cor')
-    dt_ano_fabricacao = models.DateField(verbose_name='Ano de Fabricação')
-    dt_ano_modelo = models.DateField(verbose_name='Ano do Modelo')
+    # armazenar apenas o ano como inteiro para evitar escolher dia/mês
+    current_year = datetime.date.today().year
+    dt_ano_fabricacao = models.PositiveSmallIntegerField(
+        verbose_name='Ano de Fabricação',
+        validators=[MinValueValidator(1886), MaxValueValidator(current_year + 1)],
+    )
+    dt_ano_modelo = models.PositiveSmallIntegerField(
+        verbose_name='Ano do Modelo',
+        validators=[MinValueValidator(1886), MaxValueValidator(current_year + 1)],
+    )
 
     def __str__(self):
         return self.st_placa
