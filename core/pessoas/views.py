@@ -1,8 +1,9 @@
 from django.contrib import messages
 from django.shortcuts import render
 from .forms import UsuarioInternoForm
-from .models import Orgao
+from .models import Orgao, UsuarioInterno
 from django.contrib.auth.models import Group, User
+from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponseRedirect
 from django.core.mail import EmailMessage
 from django.conf import settings
@@ -88,3 +89,63 @@ def cadastro_interno(request):
         'pessoas/cadastro_interno.html',
         content
     )
+
+def atualizar_cadastro_interno(request, user_id=None):
+
+    uid = user_id or (request.user.id if request.user.is_authenticated else None)
+    if not uid:
+        messages.error(request, 'Usuário não autenticado.')
+        return HttpResponseRedirect('/')
+
+    try:
+        usuario_interno = UsuarioInterno.objects.get(fk_user__id=uid)
+    except UsuarioInterno.DoesNotExist:
+        messages.error(request, 'Cadastro interno não encontrado para este usuário.')
+        return HttpResponseRedirect('/')
+
+    form = UsuarioInternoForm(instance=usuario_interno)
+
+    if request.method == 'POST':
+
+         form = UsuarioInternoForm(request.POST, instance=usuario_interno)
+
+    if form.is_valid():
+
+        usuario = User.objects.get(id=request.user.id)
+        usuario.email = form.cleaned_data['email']
+        usuario.first_name = form.cleaned_data['nome']
+        usuario.last_name = form.cleaned_data['sobrenome']
+        usuario.username = form.cleaned_data['login']
+        usuario.set_password(form.cleaned_data['senha'])
+        usuario.save()
+        update_session_auth_hash(request, usuario)
+        print(usuario.email)
+
+        form.save()
+
+        try:
+            email_body = f"""\
+            <html>
+            <head></head>
+            <body>
+                <h2>STATUS ACHEI O BUG</h2>
+                <p>Seu cadastro foi atualizado com sucesso!!</p>
+                <p>Para mais informações entrar em contato com a SEMIT</p>
+            </body>
+            </html>
+            """
+            email = EmailMessage('Achei O Bug', email_body, to=[usuario.email])
+            email.content_subtype = "html" # this is the crucial part
+            email.send()
+        except:
+            messages.error(request, "Falha ao enviar email!")
+
+            logger.info('Cadastro Interno Atualizado', extra={'user': request.user.username })
+
+            messages.success(request, "Cadastro atualizado com sucesso!")
+
+    context = {
+        'form': form,
+    }
+    
+    return render(request, 'pessoas/atualizar_cadastro_interno.html', context)
